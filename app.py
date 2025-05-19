@@ -3,6 +3,7 @@ import subprocess
 import whisper
 import os
 from flask_cors import CORS
+from translate import translate_text
 
 app = Flask(__name__)
 CORS(app) 
@@ -25,8 +26,14 @@ def transcribe_audio():
      result = model.transcribe(wav_path)
      text = result['text']
      print("[TRANSCRIPT]:", text)
+     target_lang = request.form.get("target", "fr")
+     translated = translate_text(text, target_lang)
+     print("Translated Text:", translated)
 
-     return jsonify({"transcript": text})
+     return jsonify({
+        "transcript": transcript,
+        "translatedText": translated
+     })
 
 if __name__ == '__main__':
     app.run(debug=True)
