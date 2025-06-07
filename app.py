@@ -1,13 +1,17 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template 
 import subprocess
 import whisper
-import os
+import os 
 from flask_cors import CORS
 from translate import translate_text
 
 app = Flask(__name__)
 CORS(app) 
 model = whisper.load_model("base")
+
+@app.route('/')
+def serve():
+     return render_template("index.html")
 
 @app.route('/stt', methods=['POST'])
 def transcribe_audio():
