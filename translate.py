@@ -1,7 +1,11 @@
 from google.cloud import translate_v2 as translate
+from google.oauth2 import service_account
+
+credentials = service_account.Credentials.from_service_account_file("../../translate-460311-61b62fedb41b.json")
+
 
 # Initialize the client
-translate_client = translate.Client()
+translate_client = translate.Client(credentials=credentials)
 
 def translate_text(text, target_language="hi"):
     if isinstance(text, bytes):
