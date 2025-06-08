@@ -35,7 +35,7 @@ def transcribe_audio():
      print("Translated Text:", translated)
 
      return jsonify({
-        "transcript": transcript,
+        "transcript": text,
         "translatedText": translated
      })
 
